@@ -127,11 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Structures.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BitArray.h" />
-    <ClInclude Include="NumberTheory.h" />
+    <ClInclude Include="NumberTheory\EratosthenesSieve.h" />
+    <ClInclude Include="NumberTheory\Factorizer.h" />
+    <ClInclude Include="NumberTheory\NumberTheory.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

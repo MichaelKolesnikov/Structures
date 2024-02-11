@@ -1,4 +1,4 @@
-﻿#include "NumberTheory.h"
+﻿#include "NumberTheory\\NumberTheory.h"
 #include <algorithm>
 #include <numeric>
 #include <iostream>
