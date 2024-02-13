@@ -104,6 +104,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,7 +135,10 @@
     <ClInclude Include="BitArray.h" />
     <ClInclude Include="NumberTheory\EratosthenesSieve.h" />
     <ClInclude Include="NumberTheory\Factorizer.h" />
+    <ClInclude Include="NumberTheory\FloorLog.h" />
+    <ClInclude Include="NumberTheory\GCD&amp;LCM.h" />
     <ClInclude Include="NumberTheory\NumberTheory.h" />
+    <ClInclude Include="SparseTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

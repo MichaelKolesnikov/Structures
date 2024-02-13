@@ -1,11 +1,8 @@
 ﻿#include "NumberTheory\\NumberTheory.h"
-#include <algorithm>
+#include "SparseTable.h"
 #include <numeric>
 #include <iostream>
 #include <chrono>
-#include <bitset>
-#include <malloc.h>
-#include "BitArray.h"
 
 using namespace std;
 
@@ -13,6 +10,11 @@ int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(0);
 	cout.tie(0);
+
+	std::vector<int> v = { 12, 18, 24, 36, 48 };
+	SparseTable<int> table(v, [](int a, int b) {return NumberTheory::get_greatest_common_divisor(a, b);});
+	cout << table.ask_value(1, 3) << endl;
+	return 0;
 
 	int n = 1e7;
 	NumberTheory::EratosthenesSieve<1024> sieve;

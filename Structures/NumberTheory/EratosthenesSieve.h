@@ -3,7 +3,7 @@
 #include <cmath>
 #include <functional>
 #include <iostream>
-#include "BitArray.h"
+#include "..\\BitArray.h"
 
 namespace NumberTheory {
     template <size_t size_of_one_bitset>
