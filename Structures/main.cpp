@@ -1,8 +1,9 @@
 ﻿#include "NumberTheory\\NumberTheory.h"
 #include "SparseTable.h"
+#include "SegmentTree.h"
 #include <numeric>
 #include <iostream>
-#include <chrono>
+#include <sstream>
 
 using namespace std;
 
@@ -11,34 +12,42 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
-	std::vector<int> v = { 12, 18, 24, 36, 48 };
-	SparseTable<int> table(v, [](int a, int b) {return NumberTheory::get_greatest_common_divisor(a, b);});
-	cout << table.ask_value(1, 3) << endl;
-	return 0;
-
-	int n = 1e7;
-	NumberTheory::EratosthenesSieve<1024> sieve;
-	auto start = std::chrono::steady_clock::now();
-	sieve.build(n);
-	auto end = std::chrono::steady_clock::now();
-	cout << std::chrono::duration_cast<std::chrono::seconds>(end - start).count() << endl;
-
-	for (int i = 0; i < 40; ++i) {
-		cout << i << ' ' << sieve.is_prime(i) << '\n';
+	ostringstream answer;
+	int n, k, l, r, position;
+	int value;
+	char q;
+	cin >> n;
+	std::vector<int> a(n);
+	for (int i = 0; i < n; ++i) {
+		cin >> a[i];
 	}
-	cout << flush;
-
-
-	n = 1e5;
-	NumberTheory::Factorizer<2048> fact;
-	fact.build(n);
-	for (int i = 1; i < 1e5; ++i) {
-		auto ff = fact.factorize(i);
-		if (std::accumulate(begin(ff), std::end(ff), 1, [](int x, int y) {return x * y;}) != i) {
-			cout << "Lol" << endl;
-			break;
+	SegmentTree<int> st(a, [](int a, int b) {return a + b;});
+	cin >> k;
+	for (int _ = 0; _ < k; ++_) {
+		cin >> q;
+		if (q == 's') {
+			cin >> l >> r;
+			--l; --r;
+			answer << st.ask_value_on(l, r) << ' ';
+		}
+		else {
+			cin >> position >> value;
+			--position;
+			st.change_value(position, value);
 		}
 	}
-	cout << "Good" << endl;
-	return 0;
+	cout << answer.str() << endl;
 }
+
+/*
+5
+1 2 3 4 5
+7
+s 1 4
+u 3 10
+s 2 5
+s 1 3
+u 1 13
+s 3 5
+s 1 2
+*/

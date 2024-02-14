@@ -138,6 +138,7 @@
     <ClInclude Include="NumberTheory\FloorLog.h" />
     <ClInclude Include="NumberTheory\GCD&amp;LCM.h" />
     <ClInclude Include="NumberTheory\NumberTheory.h" />
+    <ClInclude Include="SegmentTree.h" />
     <ClInclude Include="SparseTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

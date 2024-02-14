@@ -41,5 +41,8 @@
     <ClInclude Include="NumberTheory\GCD&amp;LCM.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="SegmentTree.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
