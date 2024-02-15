@@ -4,6 +4,7 @@
 #include <numeric>
 #include <iostream>
 #include <sstream>
+#include "RootDecomposition.h"
 
 using namespace std;
 
@@ -12,7 +13,31 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
-	ostringstream answer;
+	int n;
+	cin >> n;
+	vector<int> a(n);
+	for (int& i : a)
+		cin >> i;
+	RootDecomposition<int> s(a);
+	int q;
+	cin >> q;
+	for (int _ = 0; _ < q; ++_) {
+		char type;
+		cin >> type;
+		if (type == '?') {
+			int l, r;
+			cin >> l >> r;
+			cout << s.get_result_on(l, r) << endl;
+		}
+		else {
+			int l, r, x;
+			cin >> l >> r >> x;
+			s.act(l, r, x);
+		}
+	}
+	return 0;
+
+	/*ostringstream answer;
 	int n, k, l, r, position;
 	int value;
 	char q;
@@ -36,18 +61,5 @@ int main() {
 			st.change_value(position, value);
 		}
 	}
-	cout << answer.str() << endl;
+	cout << answer.str() << endl;*/
 }
-
-/*
-5
-1 2 3 4 5
-7
-s 1 4
-u 3 10
-s 2 5
-s 1 3
-u 1 13
-s 3 5
-s 1 2
-*/
