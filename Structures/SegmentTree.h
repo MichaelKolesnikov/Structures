@@ -43,7 +43,7 @@ private:
 		return f(ask(children.left, l, m, askl, askr), ask(children.right, m, r, askl, askr)); // vertex is yellow
 	}
 
-	void change(size_t vertex_number, size_t l, size_t r, size_t position, const T& value) {
+	void alter(size_t vertex_number, size_t l, size_t r, size_t position, const T& value) {
 		if (l == r - 1) {
 			this->t[vertex_number] = value;
 			return;
@@ -51,21 +51,17 @@ private:
 		Children children(vertex_number);
 		size_t m = (l + r) / 2;
 		if (position < m) {
-			change(children.left, l, m, position, value);
+			alter(children.left, l, m, position, value);
 		}
 		else {
-			change(children.right, m, r, position, value);
+			alter(children.right, m, r, position, value);
 		}
 		this->t[vertex_number] = this->f(this->t[children.left], this->t[children.right]);
 	}
 
 public:
-	SegmentTree(const std::vector<T>& a, const std::function<T(T, T)>& f) {
-		this->n = a.size();
-		this->a.resize(this->n);
+	SegmentTree(const std::vector<T>& a, const std::function<T(T, T)>& f) : n(a.size()), a(a), f(f) {
 		this->t.resize(4 * this->n);
-		this->f = f;
-		std::copy(std::cbegin(a), std::cend(a), std::begin(this->a));
 		this->build(0, 0, n);
 	}
 
@@ -74,6 +70,6 @@ public:
 	}
 
 	void change_value(size_t position, const T& value) {
-		change(0, 0, this->n, position, value);
+		alter(0, 0, this->n, position, value);
 	}
 };

@@ -13,12 +13,13 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
+	// cout << exp_f<int>(5, [](int a, int b) {return a * b;}, 3) << endl;
 	int n;
 	cin >> n;
 	vector<int> a(n);
 	for (int& i : a)
 		cin >> i;
-	RootDecomposition<int> s(a);
+	RootDecomposition<int> s(a, [](int a, int b) {return a + b;});
 	int q;
 	cin >> q;
 	for (int _ = 0; _ < q; ++_) {
@@ -27,7 +28,7 @@ int main() {
 		if (type == '?') {
 			int l, r;
 			cin >> l >> r;
-			cout << s.get_result_on(l, r) << endl;
+			cout << s.get_result_on(l, r).value() << endl;
 		}
 		else {
 			int l, r, x;
