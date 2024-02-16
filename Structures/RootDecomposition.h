@@ -165,15 +165,8 @@ public:
 		}
 		left_block_number += left_block_taken_partially;
 		right_block_number -= right_block_taken_partially;
-		auto right_result = blocks[right_block_number].get_full_result();
-		if (answer.has_value()) {
-			answer = this->f(answer.value(), right_result);
-		}
-		else {
-			answer = right_result;
-		}
 		for (size_t i = left_block_number; i < right_block_number; ++i) {
-			answer = f(answer.value(), blocks[i].get_full_result());
+			answer = (answer.has_value() ? f(answer.value(), blocks[i].get_full_result()) : blocks[i].get_full_result());
 		}
 		return answer;
 	}

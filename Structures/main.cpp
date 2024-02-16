@@ -19,17 +19,32 @@ int main() {
 	vector<int> a(n);
 	for (int& i : a)
 		cin >> i;
-	RootDecomposition<int> s(a, [](int a, int b) {return a + b;});
+	RootDecomposition<int> s(a, [](int a, int b) {return std::min(a, b);});
 	int q;
 	cin >> q;
 	for (int _ = 0; _ < q; ++_) {
-		char type;
+		string type;
 		cin >> type;
-		if (type == '?') {
+
+		if (type == "?") {
 			int l, r;
 			cin >> l >> r;
 			cout << s.get_result_on(l, r).value() << endl;
 		}
+
+		else if (type == "get") {
+			int index;
+			cin >> index;
+			cout << s[index] << endl;
+		}
+
+		else if (type == "getall") {
+			for (int i = 0; i < n; ++i) {
+				cout << s[i] << ' ';
+			}
+			cout << endl;
+		}
+
 		else {
 			int l, r, x;
 			cin >> l >> r >> x;
@@ -64,3 +79,9 @@ int main() {
 	}
 	cout << answer.str() << endl;*/
 }
+
+/*
+6
+1 -9 15 0 2 7
+10000
+*/
