@@ -365,3 +365,5 @@ FodyWeavers.xsd
 *.vcxproj
 *.filters
 *.sln
+/Structures/RootD.h
+/Structures/some_solve.h
