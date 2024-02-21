@@ -93,6 +93,26 @@ TEST(SparseTableTest, MaxFunctionTest) {
 }
 
 
+TEST(SparseTableTest, SumFunctionTest) {
+	std::vector<int> v = { 1, 3, 2, 5, 4 };
+	SparseTable<int> sparseTable(v, [](const int& a, const int& b) { return a + b; });
+
+	ASSERT_EQ(sparseTable.ask_value(1, 3), 10);
+	ASSERT_EQ(sparseTable.ask_value(0, 4), 15);
+	ASSERT_EQ(sparseTable.ask_value(2, 4), 11);
+}
+
+
+TEST(SparseTableTest, MulFunctionTest) {
+	std::vector<int> v = { 1, 3, 2, 5, 4 };
+	SparseTable<int> sparseTable(v, [](const int& a, const int& b) { return a * b; });
+
+	ASSERT_EQ(sparseTable.ask_value(1, 3), 30);
+	ASSERT_EQ(sparseTable.ask_value(0, 4), 120);
+	ASSERT_EQ(sparseTable.ask_value(2, 4), 40);
+}
+
+
 TEST(SparseTableWithIdempotencyTest, GCDFunctionTest) {
 	std::vector<int> v = { 12, 18, 24, 36, 48 };
 	SparseTable<int> sparseTable(v, [](int a, int b) { return NumberTheory::get_greatest_common_divisor(a, b); });

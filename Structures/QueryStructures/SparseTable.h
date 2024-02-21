@@ -5,27 +5,38 @@
 
 namespace QueryStructures {
 	template <class T>
+	using BinaryFunction = std::function<T(const T&, const T&)>;
+
+	template <class T>
 	class ISparseTable {
 	protected:
 		size_t n;
 		size_t size, log;
 
 		std::vector<T> a;
-		std::function<T(T, T)> f;
+		BinaryFunction<T> f;
 
 		virtual void initialize() = 0;
 
-		void constructor(const std::vector<T>& v, std::function<T(T, T)> func) {
+		void constructor(const std::vector<T>& v, const BinaryFunction<T>& func) {
 			this->n = v.size();
 			this->f = func;
-			this->size = 2 * this->n;
+			this->size = this->n;
 			this->log = NumberTheory::FloorLog::get_floor_log(this->n) + 1;
 			this->a.resize(n);
 			std::copy(v.begin(), v.end(), this->a.begin());
 			this->initialize();
 		}
 	public:
-		virtual T ask_value(size_t l, size_t r) = 0;
+		size_t get_size() const {
+			return this->size();
+		}
+
+		size_t get_count_of_levels() const {
+			return this->log;
+		}
+
+		virtual T ask_value(size_t l, size_t r) const = 0;
 	};
 
 	/// <summary>
@@ -66,7 +77,7 @@ namespace QueryStructures {
 		/// </summary>
 		/// <param name="v"></param>
 		/// <param name="func">function must provide the properties: associativity, commutativity, idempotency</param>
-		SparseTableWithIdempotency(const std::vector<T>& v, std::function<T(T, T)> func) {
+		SparseTableWithIdempotency(const std::vector<T>& v, const BinaryFunction<T>& func) {
 			this->constructor(v, func);
 		}
 
@@ -78,7 +89,7 @@ namespace QueryStructures {
 			return get_index(left, right);
 		}
 
-		T ask_value(size_t l, size_t r) override {
+		T ask_value(size_t l, size_t r) const override {
 			auto index = this->ask_index(l, r);
 			return this->a[index];
 		}
@@ -108,7 +119,7 @@ namespace QueryStructures {
 			}
 			for (int level = 1; level < this->log; ++level) {
 				for (int i = 0; i + (1 << level) <= this->n; ++i) {
-					this->sparse[level][i] = this->f(this->sparse[level - 1][i], this->sparse[level - 1][i + (1 << level - 1)]);
+					this->sparse[level][i] = this->f(this->sparse[level - 1][i], this->sparse[level - 1][i + (1 << (level - 1))]);
 				}
 			}
 		}
@@ -118,16 +129,20 @@ namespace QueryStructures {
 		/// </summary>
 		/// <param name="v"></param>
 		/// <param name="func">function must provide the properties: associativity, commutativity</param>
-		SparseTable(const std::vector<T>& v, std::function<T(T, T)> func) {
+		SparseTable(const std::vector<T>& v, const BinaryFunction<T>& func) {
 			this->constructor(v, func);
 		}
 
-		T ask_value(size_t l, size_t r) override {
-			size_t len = r - l + 1;
-			size_t level = NumberTheory::FloorLog::get_floor_log(len);
-			auto left = sparse[level][l];
-			auto right = sparse[level][r - (static_cast<unsigned long long>(1) << level) + 1];
-			return this->f(left, right);
+		T ask_value(size_t l, size_t r) const override {
+			auto result = sparse[0][l];
+			++l;
+			for (int level = this->log; level >= 0; --level) {
+				if (l + (static_cast<unsigned long long>(1) << level) - 1 <= r) {
+					result = this->f(result, sparse[level][l]);
+					l += (static_cast<unsigned long long>(1) << level);
+				}
+			}
+			return result;
 		}
 	};
 }
