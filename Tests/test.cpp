@@ -165,3 +165,47 @@ int main(int argc, char** argv) {
 	::testing::InitGoogleTest(&argc, argv);
 	return RUN_ALL_TESTS();
 }
+
+
+/*
+srand(time(NULL));
+	int n, k, l, r, q;
+	for (int _ = 0; _ < 100; ++_) {
+		ostringstream out;
+		n = (int)rand() % 10000 + 2;
+		k = (int)rand() % 100;
+		q = (int)rand() % 500;
+		out << n << ' ' << k << ' ' << q << '\n';
+		for (int i = 0; i < q;) {
+			l = (int)rand() % n;
+			r = (int)rand() % n;
+			if (l == r) {
+				continue;
+			}
+			if (l > r) {
+				std::swap(l, r);
+			}
+			out << l << ' ' << r << '\n';
+			++i;
+		}
+		string input_now = out.str();
+		// cout << input_now << endl;
+		istringstream in1(input_now);
+		istringstream in2(input_now);
+		ostringstream out1;
+		ostringstream out2;
+		solve1(in1, out1);
+		// cout << "f" << endl;
+		solve2(in2, out2);
+		// cout << "s" << endl;
+		if (out1.str() != out2.str()) {
+			cout << input_now << endl;
+			cout << "First answer:\n";
+			cout << out1.str() << endl;
+			cout << "Second answer:\n";
+			cout << out2.str() << endl;
+			return 0;
+		}
+		cout << "test " << _ << " was passes" << endl;
+	}
+*/

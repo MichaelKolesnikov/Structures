@@ -165,7 +165,7 @@ public:
 		}
 		left_block_number += left_block_taken_partially;
 		right_block_number -= right_block_taken_partially;
-		for (size_t i = left_block_number; i < right_block_number; ++i) {
+		for (size_t i = left_block_number; i <= right_block_number; ++i) {
 			answer = (answer.has_value() ? f(answer.value(), blocks[i].get_full_result()) : blocks[i].get_full_result());
 		}
 		return answer;
