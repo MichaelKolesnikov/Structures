@@ -5,7 +5,9 @@
 #include <numeric>
 #include <random>
 #include "..\\Structures\\NumberTheory\\NumberTheory.h"
-#include "..\\Structures\\SparseTable.h"
+#include "..\\Structures\\QueryStructures\QueryStructures.h"
+
+using namespace QueryStructures;
 
 
 TEST(FloorLogTest, LogarithmTest) {

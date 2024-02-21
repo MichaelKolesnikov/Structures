@@ -1,9 +1,6 @@
-﻿#include "RootD.h"
-#include "some_solve.h"
-#include <iostream>
+﻿#include <iostream>
 #include <algorithm>
-#include <sstream>
-#include <math.h>
+#include "QueryStructures//QueryStructures.h"
 
 using namespace std;
 
@@ -12,5 +9,4 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
-	solve2(cin, cout);
 }

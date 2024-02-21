@@ -138,9 +138,10 @@
     <ClInclude Include="NumberTheory\FloorLog.h" />
     <ClInclude Include="NumberTheory\GCD&amp;LCM.h" />
     <ClInclude Include="NumberTheory\NumberTheory.h" />
-    <ClInclude Include="RootDecomposition.h" />
-    <ClInclude Include="SegmentTree.h" />
-    <ClInclude Include="SparseTable.h" />
+    <ClInclude Include="QueryStructures\QueryStructures.h" />
+    <ClInclude Include="QueryStructures\RootDecomposition.h" />
+    <ClInclude Include="QueryStructures\SegmentTree.h" />
+    <ClInclude Include="QueryStructures\SparseTable.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
