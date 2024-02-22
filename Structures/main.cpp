@@ -2,9 +2,8 @@
 #include <algorithm>
 #include <string>
 #include <sstream>
-#include "QueryStructures//QueryStructures.h"
-
-using namespace QueryStructures;
+#include <chrono>
+#include "NumberTheory//NumberTheory.h"
 
 using namespace std;
 
@@ -13,22 +12,20 @@ int main() {
 	cin.tie(0);
 	cout.tie(0);
 
-	ostringstream out;
-	int n, q, l, r;
+	size_t n;
 	cin >> n;
-	vector<int> a(n);
-	for (int i = 0; i < n; ++i) {
-		cin >> a[i];
-		a[i] = (1 ? a[i] == 0 : 0);
-		// out << a[i] << ' ';
+	/*if (n > 1e5) {
+		if (NumberTheory::EratosthenesSieve<1>::is_prime_sqrt_method(n)) {
+			cout << n << endl;
+			return 0;
+		}
+
+	}*/
+	NumberTheory::Factorizer<8> factorizer;
+	factorizer.build(n + 1);
+	auto answer = factorizer.factorize(n);
+	for (int i = 0; i < answer.size() - 1; ++i) {
+		cout << answer[i] << '*';
 	}
-	// out << endl;
-	cin >> q;
-	SparseTable<int> s(a, [](const int& a, const int& b) {return a + b;});
-	for (int i = 0; i < q; ++i) {
-		cin >> l >> r;
-		--l; --r;
-		out << s.ask_value(l, r) << ' ';
-	}
-	cout << out.str() << std::flush;
+	cout << answer.back() << endl;
 }

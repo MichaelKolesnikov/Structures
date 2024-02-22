@@ -3,7 +3,7 @@
 #include <bitset>
 #include <exception>
 
-template <size_t size_of_one_bitset>
+template <size_t size_of_one_bitset = 8>
 class BitArray {
 private:
     size_t _size;
@@ -44,4 +44,3 @@ public:
         return vector_of_bitset[array_index][bit_index];
     }
 };
-
