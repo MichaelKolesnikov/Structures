@@ -28,8 +28,8 @@ namespace NumberTheory {
 			minimal_prime_divisors.assign(this->n, -1);
 			NumberTheory::EratosthenesSieve<size_of_one_bitset>::build_and_get_sieve_in_vector(
 				this->n,
-				[this](size_t i, size_t j) { this->_add_min_divisor(i, j); },
-				[this](size_t i) { this->_process_prime(i); }
+				[this](size_t i) { this->_process_prime(i); },
+				[this](size_t i, size_t j) { this->_add_min_divisor(i, j); }
 			);
 		}
 
