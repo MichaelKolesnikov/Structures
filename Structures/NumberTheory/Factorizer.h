@@ -26,8 +26,9 @@ namespace NumberTheory {
 				this->n = recommended_max_size;
 			}
 			minimal_prime_divisors.assign(this->n, -1);
-			NumberTheory::EratosthenesSieve<size_of_one_bitset>::build_and_get_sieve_in_vector(
-				this->n,
+			NumberTheory::EratosthenesSieve sieve(this->get_size());
+			sieve.build();
+			sieve.go_through_prime_numbers_with_their_multiples(
 				[this](size_t i) { this->_process_prime(i); },
 				[this](size_t i, size_t j) { this->_add_min_divisor(i, j); }
 			);
@@ -39,7 +40,7 @@ namespace NumberTheory {
 
 		std::vector<size_t> factorize(size_t n, bool repetitions = true) {
 			if (n >= this->get_size()) {
-				if (NumberTheory::EratosthenesSieve<1>::is_prime_sqrt_method(n)) {
+				if (NumberTheory::EratosthenesSieve::is_prime_sqrt_method(n)) {
 					return { n };
 				}
 			}
@@ -60,13 +61,13 @@ namespace NumberTheory {
 			}
 			if (current_i >= this->get_size()) {
 				if (n >= this->get_size() && prime_factors.size() > 0) {
-					if (NumberTheory::EratosthenesSieve<1>::is_prime_sqrt_method(n)) {
+					if (NumberTheory::EratosthenesSieve::is_prime_sqrt_method(n)) {
 						prime_factors.push_back(n);
 						return prime_factors;
 					}
 				}
 				while (n >= this->get_size()) {
-					if (n % current_i == 0 && NumberTheory::EratosthenesSieve<1>::is_prime_sqrt_method(current_i)) {
+					if (n % current_i == 0 && NumberTheory::EratosthenesSieve::is_prime_sqrt_method(current_i)) {
 						size_t count = 1;
 						size_t minimal_prime_divisor = current_i;
 						n /= minimal_prime_divisor;

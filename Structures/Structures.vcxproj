@@ -138,6 +138,7 @@
     <ClInclude Include="NumberTheory\FloorLog.h" />
     <ClInclude Include="NumberTheory\GCD&amp;LCM.h" />
     <ClInclude Include="NumberTheory\NumberTheory.h" />
+    <ClInclude Include="NumberTheory\SegmentedWheel.h" />
     <ClInclude Include="QueryStructures\QueryStructures.h" />
     <ClInclude Include="QueryStructures\RootDecomposition.h" />
     <ClInclude Include="QueryStructures\SegmentTree.h" />

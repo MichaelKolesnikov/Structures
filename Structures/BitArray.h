@@ -1,46 +1,58 @@
 #pragma once
-#include <vector>
-#include <bitset>
-#include <exception>
 
-template <size_t size_of_one_bitset = 8>
+typedef int container;
+const container degrees[] = { (1 << 0), (1 << 1), (1 << 2), (1 << 3), (1 << 4), (1 << 5), (1 << 6), (1 << 7),
+						   (1 << 8), (1 << 9), (1 << 10), (1 << 11), (1 << 12), (1 << 13), (1 << 14),
+						   (1 << 15), (1 << 16), (1 << 17), (1 << 18), (1 << 19), (1 << 20), (1 << 21),
+						   (1 << 22), (1 << 23), (1 << 24), (1 << 25), (1 << 26), (1 << 27), (1 << 28),
+						   (1 << 29), (1 << 30), (1 << 31) };
+const int main_degree = (sizeof(container) == 1 ? 3 : (sizeof(container) == 4 ? 5 : (sizeof(container) == 8 ? 6 : 0)));
+const container for_mod = degrees[main_degree] - 1;
+const container one = 1;
+
 class BitArray {
 private:
-    size_t _size;
-    std::vector<std::bitset<size_of_one_bitset>> vector_of_bitset;
-
+	int _size;
+	container* ptr;
 public:
-    BitArray(size_t size = 0, bool default_value = false) : _size(size) {
-        size_t num_arrays = (size + size_of_one_bitset - 1) / size_of_one_bitset;
-        vector_of_bitset = std::vector<std::bitset<size_of_one_bitset>>(num_arrays);
-        if (default_value) {
-            for (auto& b : this->vector_of_bitset) {
-                b.set();
-            }
-        }
-    }
+	static void set_true_bit(container& n, int position) {
+		n |= degrees[position];
+	}
+	static void set_false_bit(container& n, int position) {
+		n &= ~degrees[position];
+	}
 
-    size_t size() const {
-        return this->_size;
-    }
+	static bool get_bit(container n, int position) {
+		return (n >> position) & one;
+	}
 
-    bool operator[](size_t index) const {
-        if (index >= this->size()) {
-            throw std::out_of_range("Index out of range");
-        }
+	BitArray(int size = 0, bool default_value = false) : _size(size) {
+		int num_arrays = ((size + for_mod) >> main_degree);
+		ptr = new container[num_arrays];
 
-        size_t array_index = index / size_of_one_bitset;
-        size_t bit_index = index % size_of_one_bitset;
-        return vector_of_bitset[array_index][bit_index];
-    }
+		container default_val = -default_value;
+		for (int i = 0; i < num_arrays; ++i) {
+			this->ptr[i] = default_val;
+		}
+	}
 
-    typename std::bitset<size_of_one_bitset>::reference operator[](size_t index) {
-        if (index >= this->size()) {
-            throw std::out_of_range("Index out of range");
-        }
+	int size() const {
+		return this->_size;
+	}
 
-        size_t array_index = index / size_of_one_bitset;
-        size_t bit_index = index % size_of_one_bitset;
-        return vector_of_bitset[array_index][bit_index];
-    }
+	bool operator[](int index) const {
+		return get_bit(ptr[(index >> main_degree)], index & for_mod);
+	}
+
+	void set_true(int index) {
+		set_true_bit(ptr[(index >> main_degree)], index & for_mod);
+	}
+
+	void set_false(int index) {
+		set_false_bit(ptr[(index >> main_degree)], index & for_mod);
+	}
+
+	~BitArray() {
+		delete[] this->ptr;
+	}
 };

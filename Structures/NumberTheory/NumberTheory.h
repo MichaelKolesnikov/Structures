@@ -3,3 +3,4 @@
 #include "Factorizer.h"
 #include "FloorLog.h"
 #include "GCD&LCM.h"
+#include "SegmentedWheel.h"

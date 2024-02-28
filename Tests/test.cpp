@@ -1,5 +1,4 @@
 #include "pch.h"
-#include <gtest/gtest.h>
 #include <vector>
 #include <algorithm>
 #include <numeric>
@@ -133,23 +132,13 @@ TEST(SparseTableWithIdempotencyTest, LCMFunctionTest) {
 }
 
 
-class TestEratosthenesSieve : public ::testing::Test {
-protected:
-	void SetUp() override {
-		size = 10000000;
-		test_size = 100;
-		sieve.build(size);
-	}
+TEST(TestEratosthenesSieve, PrimeTest) {
+	size_t size = 10000000;
+	std::vector<int> test_numbers(100);
+	std::generate(test_numbers.begin(), test_numbers.end(), [this, size]() { return rand() % (size - 1) + 1; });
 
-	NumberTheory::EratosthenesSieve<128> sieve;
-	int size;
-	int test_size;
-};
-
-
-TEST_F(TestEratosthenesSieve, PrimeTest) {
-	std::vector<int> test_numbers(test_size);
-	std::generate(test_numbers.begin(), test_numbers.end(), [this]() { return rand() % (size - 1) + 1; });
+	NumberTheory::EratosthenesSieve sieve(size);
+	sieve.build();
 
 	for (auto test_number : test_numbers) {
 		ASSERT_EQ(sieve.is_prime(test_number), sieve.is_prime_sqrt_method(test_number));
