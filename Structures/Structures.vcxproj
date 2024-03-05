@@ -143,6 +143,11 @@
     <ClInclude Include="QueryStructures\RootDecomposition.h" />
     <ClInclude Include="QueryStructures\SegmentTree.h" />
     <ClInclude Include="QueryStructures\SparseTable.h" />
+    <ClInclude Include="TimeStructures\BasicFunctionsAndConcepts.h" />
+    <ClInclude Include="TimeStructures\Day.h" />
+    <ClInclude Include="TimeStructures\Month.h" />
+    <ClInclude Include="TimeStructures\TimeStructures.h" />
+    <ClInclude Include="TimeStructures\Year.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

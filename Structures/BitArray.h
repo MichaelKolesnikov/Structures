@@ -35,6 +35,18 @@ public:
 			this->ptr[i] = default_val;
 		}
 	}
+	BitArray(const BitArray& other) {
+		this->_size = other._size;
+		this->ptr = new container[this->_size];
+		memcpy(this->ptr, other.ptr, sizeof(container) * this->_size);
+	}
+	BitArray(BitArray&& other) noexcept {
+		this->_size = other._size;
+		this->ptr = other.ptr;
+		other.ptr = nullptr;
+	}
+	BitArray& operator=(const BitArray& other) = default;
+	BitArray& operator=(BitArray&& other) noexcept = default;
 
 	int size() const {
 		return this->_size;
@@ -54,5 +66,14 @@ public:
 
 	~BitArray() {
 		delete[] this->ptr;
+	}
+
+	BitArray operator+(const BitArray& other) const {
+		BitArray answer;
+		answer._size = this->size() + other.size();
+		answer.ptr = new container[answer.size()];
+		memcpy(answer.ptr, this->ptr, sizeof(container) * this->size());
+		memcpy(answer.ptr + this->size(), other.ptr, sizeof(container) * other.size());
+		return answer;
 	}
 };

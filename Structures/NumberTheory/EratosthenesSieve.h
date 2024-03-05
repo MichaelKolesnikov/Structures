@@ -10,22 +10,23 @@ namespace NumberTheory {
 	class EratosthenesSieve {
 	private:
 		size_t n;
+		size_t count_of_primes;
 		BitArray prime;
 
 	public:
-		EratosthenesSieve(size_t n) : n(n), prime(n, true) {}
+		EratosthenesSieve(size_t n) : n(n), prime(n, true), count_of_primes(0) {}
 
 		void build() {
 			prime.set_false(0);
 			prime.set_false(1);
 			for (size_t i = 2; i * i < n; ++i) {
 				if (prime[i]) {
+					++count_of_primes;
 					for (size_t j = i * i; j < n; j += i) {
 						prime.set_false(j);
 					}
 				}
 			}
-			this->get_length();
 		}
 
 		BitArray get_sieve_in_bitarray() const {
@@ -40,7 +41,11 @@ namespace NumberTheory {
 			return this->n;
 		}
 
-		void go_through_prime_numbers(const std::function<void(const size_t&)>& process_prime) {
+		inline size_t get_count_of_primes() const {
+			return this->count_of_primes;
+		}
+
+		void go_through_prime_numbers(const std::function<void(const size_t&)>& process_prime) const {
 			for (size_t i = 2; i < this->get_length(); ++i) {
 				if (this->is_prime(i)) {
 					process_prime(i);
@@ -48,9 +53,17 @@ namespace NumberTheory {
 			}
 		}
 
+		std::vector<size_t> get_prime_numbers() const {
+			std::vector<size_t> answer;
+			answer.reserve(this->get_count_of_primes());
+			auto prime_process = [&answer](const size_t& p) {answer.push_back(p);};
+			this->go_through_prime_numbers(prime_process);
+			return answer;
+		}
+
 		void go_through_prime_numbers_with_their_multiples(
 			const std::function<void(const size_t&)>& process_prime,
-			const std::function<void(const size_t&, const size_t&)>& get_prime_and_multiple) {
+			const std::function<void(const size_t&, const size_t&)>& get_prime_and_multiple) const {
 			for (size_t i = 2; i < this->get_length(); ++i) {
 				if (this->is_prime(i)) {
 					process_prime(i);
