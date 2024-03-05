@@ -1,3 +1,4 @@
+#pragma once
 #include "Day.h"
 
 namespace TimeStructures {

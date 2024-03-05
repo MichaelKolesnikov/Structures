@@ -1,3 +1,4 @@
+#pragma once
 #include "Month.h"
 
 namespace TimeStructures {

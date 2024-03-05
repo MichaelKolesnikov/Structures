@@ -1,3 +1,4 @@
+#pragma once
 #include "BasicFunctionsAndConcepts.h"
 
 namespace TimeStructures {
