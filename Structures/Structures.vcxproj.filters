@@ -68,5 +68,8 @@
     <ClInclude Include="TimeStructures\Year.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
+    <ClInclude Include="QueryStructures\PrefixAmounts.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

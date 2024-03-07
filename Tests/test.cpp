@@ -154,7 +154,7 @@ protected:
 		factorizer.build(size);
 	}
 
-	NumberTheory::Factorizer<128> factorizer;
+	NumberTheory::Factorizer factorizer;
 	int size;
 	int test_size;
 };

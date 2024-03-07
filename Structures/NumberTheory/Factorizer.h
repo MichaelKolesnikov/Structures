@@ -2,7 +2,6 @@
 #include "EratosthenesSieve.h"
 
 namespace NumberTheory {
-	template <size_t size_of_one_bitset = 8>
 	class Factorizer {
 	private:
 		size_t n;
