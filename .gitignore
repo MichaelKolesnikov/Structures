@@ -1,2 +1,3 @@
-./Structures/main
-./Tests/test
+Structures/main
+Tests/test
+Structures/some_file.txt
